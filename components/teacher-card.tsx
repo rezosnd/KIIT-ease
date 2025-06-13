@@ -1,36 +1,36 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Star, MessageSquare, Lock } from "lucide-react"
-import { useAuth } from "@/components/auth-provider"
-import { useToast } from "@/components/ui/use-toast"
-import { motion } from "framer-motion"
+import { useState } from "react";
+import Link from "next/link";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Star, MessageSquare, Lock } from "lucide-react";
+import { useAuth } from "@/components/auth-provider";
+import { useToast } from "@/components/ui/use-toast";
+import { motion } from "framer-motion";
 
 interface Teacher {
-  id: string
-  name: string
-  department: string
-  subjects: string[]
-  rating: number
-  reviewCount: number
-  image: string
+  id: string;
+  name: string;
+  department: string;
+  subjects: string[];
+  rating: number;
+  reviewCount: number;
+  image: string;
 }
 
 interface TeacherCardProps {
-  teacher: Teacher
+  teacher: Teacher;
 }
 
 export default function TeacherCard({ teacher }: TeacherCardProps) {
-  const { user } = useAuth()
-  const { toast } = useToast()
-  const [isHovered, setIsHovered] = useState(false)
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [isHovered, setIsHovered] = useState(false);
 
-  const isPremium = user?.role === "premium" || user?.role === "admin"
+  const isPremium = user?.role === "premium" || user?.role === "admin";
 
   const handleReviewClick = () => {
     if (!user) {
@@ -38,9 +38,9 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
         title: "Login Required",
         description: "Please login to write a review",
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
   const handleViewReviews = () => {
     if (!isPremium) {
@@ -48,9 +48,9 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
         title: "Premium Required",
         description: "Upgrade to premium to view teacher reviews",
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
   // Generate initials from name
   const getInitials = (name: string) => {
@@ -58,8 +58,8 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
       .split(" ")
       .map((n) => n[0])
       .join("")
-      .toUpperCase()
-  }
+      .toUpperCase();
+  };
 
   return (
     <motion.div
@@ -78,7 +78,9 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
             <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
               <Avatar className="h-16 w-16 border-2 border-primary/30">
                 <AvatarImage src={teacher.image || "/placeholder.svg"} alt={teacher.name} />
-                <AvatarFallback className="bg-primary/10 text-primary">{getInitials(teacher.name)}</AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary">
+                  {getInitials(teacher.name)}
+                </AvatarFallback>
               </Avatar>
             </motion.div>
             <div>
@@ -111,9 +113,7 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                  <Badge key={subject} variant="secondary">
-                    {subject}
-                  </Badge>
+                  <Badge variant="secondary">{subject}</Badge>
                 </motion.div>
               ))}
             </div>
@@ -121,7 +121,12 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
         </CardContent>
 
         <CardFooter className="flex justify-between p-6 pt-0">
-          <Button variant="outline" className="sci-fi-button" onClick={handleReviewClick} asChild={!!user}>
+          <Button
+            variant="outline"
+            className="sci-fi-button"
+            onClick={user ? undefined : handleReviewClick}
+            asChild={!!user}
+          >
             {user ? (
               <Link href={`/teachers/${teacher.id}/review`}>
                 <MessageSquare className="h-4 w-4 mr-2" />
@@ -135,7 +140,11 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
             )}
           </Button>
 
-          <Button className="sci-fi-button" onClick={handleViewReviews} asChild={isPremium}>
+          <Button
+            className="sci-fi-button"
+            onClick={isPremium ? undefined : handleViewReviews}
+            asChild={!!isPremium}
+          >
             {isPremium ? (
               <Link href={`/teachers/${teacher.id}`}>View Reviews</Link>
             ) : (
@@ -148,5 +157,5 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
         </CardFooter>
       </Card>
     </motion.div>
-  )
+  );
 }
