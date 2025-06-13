@@ -16,7 +16,7 @@ import {
 import { Menu, X, User, LogOut, Settings, FileText, RefreshCw } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-// *** DEFAULT EXPORT ***
+// DEFAULT EXPORT ONLY!
 export default function Navbar() {
   const { user, logout, isAuthenticated, isPremium, isAdmin } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -160,5 +160,6 @@ export default function Navbar() {
     </nav>
   );
 }
+
 
 
