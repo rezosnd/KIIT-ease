@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import Navbar from "@/components/navbar"
+import Navbar from "@/components/navbar" // Import is kept!
 import { BookOpen, Users, RefreshCw, FileText, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <div className="sci-fi-container">
-      <Navbar />
+      {/* <Navbar /> removed as per instruction */}
 
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden sci-fi-grid">
@@ -154,7 +154,6 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-
         {/* HUD Effects */}
         <div className="hud__effects flex absolute bottom-4 left-4">
           <div className="effect__long"></div>
@@ -211,7 +210,6 @@ export default function Home() {
                 </CardContent>
               </motion.div>
             </motion.div>
-
             <motion.div variants={item}>
               <motion.div
                 className="sci-fi-card sci-fi-glow h-full"
@@ -235,7 +233,6 @@ export default function Home() {
                 </CardContent>
               </motion.div>
             </motion.div>
-
             <motion.div variants={item}>
               <motion.div
                 className="sci-fi-card sci-fi-glow h-full"
@@ -259,7 +256,6 @@ export default function Home() {
                 </CardContent>
               </motion.div>
             </motion.div>
-
             <motion.div variants={item}>
               <motion.div
                 className="sci-fi-card sci-fi-glow h-full"
@@ -348,6 +344,7 @@ export default function Home() {
         </div>
       </motion.section>
 
+      {/* Footer removed as per your request */}
     </div>
   )
 }
