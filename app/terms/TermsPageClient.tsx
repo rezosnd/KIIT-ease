@@ -2,112 +2,157 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { ChevronRight } from "lucide-react"
 
 export default function TermsPageClient() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  }
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <h1 className="text-3xl font-bold mb-6 text-primary">Terms and Conditions</h1>
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6">
-          <section>
-            <h2 className="text-xl font-semibold mb-3">1. Acceptance of Terms</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              By accessing or using KIITease, you agree to be bound by these Terms and Conditions. If you do not agree
-              to all the terms and conditions, you may not access or use our services.
-            </p>
-          </section>
+      <div className="bg"></div>
+      <div className="hud__effects">
+        <div className="effect__long"></div>
+        <div className="effect__small"></div>
+        <div className="effect__small"></div>
+        <div className="effect__long"></div>
+      </div>
 
-          <section>
-            <h2 className="text-xl font-semibold mb-3">2. User Accounts</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              When you create an account with us, you must provide accurate and complete information. You are
-              responsible for safeguarding the password and for all activities that occur under your account.
-            </p>
-          </section>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-6"
+      >
+        <h1 className="text-3xl font-bold text-primary sci-fi-text-glow">Terms and Conditions</h1>
+        <div className="sci-fi-divider"></div>
+      </motion.div>
 
-          <section>
-            <h2 className="text-xl font-semibold mb-3">3. User Conduct</h2>
-            <p className="text-gray-700 dark:text-gray-300">You agree not to use KIITease to:</p>
-            <ul className="list-disc pl-6 mt-2 text-gray-700 dark:text-gray-300">
-              <li>Violate any laws or regulations</li>
-              <li>Infringe upon the rights of others</li>
-              <li>Submit false or misleading information</li>
-              <li>Upload or transmit viruses or malicious code</li>
-              <li>Interfere with the proper working of the platform</li>
-            </ul>
-          </section>
+      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-6">
+        {[
+          {
+            title: "1. Acceptance of Terms",
+            content:
+              "By accessing or using KIITease, you agree to be bound by these Terms and Conditions. If you do not agree to all the terms and conditions, you may not access or use our services.",
+          },
+          {
+            title: "2. User Accounts",
+            content:
+              "When you create an account with us, you must provide accurate and complete information. You are responsible for safeguarding the password and for all activities that occur under your account.",
+          },
+          {
+            title: "3. User Conduct",
+            content: "You agree not to use KIITease to:",
+            list: [
+              "Violate any laws or regulations",
+              "Infringe upon the rights of others",
+              "Submit false or misleading information",
+              "Upload or transmit viruses or malicious code",
+              "Interfere with the proper working of the platform",
+            ],
+          },
+          {
+            title: "4. Premium Membership",
+            content:
+              "Premium membership provides access to additional features as described on our website. Payment for premium membership is processed through our payment partners. Refunds are subject to our refund policy.",
+          },
+          {
+            title: "5. Section Swapping",
+            content:
+              "The section swapping feature is provided as-is. KIITease does not guarantee that a match will be found for your swap request. All swaps are subject to mutual agreement between the parties involved.",
+          },
+          {
+            title: "6. Notes Sharing",
+            content:
+              "Users who upload notes retain copyright to their original content. By uploading notes, you grant KIITease a license to display and distribute the content to other users of the platform.",
+          },
+          {
+            title: "7. Teacher Reviews",
+            content:
+              "Reviews must be honest and based on personal experience. KIITease reserves the right to remove reviews that are inappropriate, offensive, or violate our content guidelines.",
+          },
+          {
+            title: "8. Referral Program",
+            content:
+              "Referral rewards are subject to verification and may be revoked in cases of fraud or abuse. KIITease reserves the right to modify or terminate the referral program at any time.",
+          },
+          {
+            title: "9. Limitation of Liability",
+            content:
+              "KIITease and its affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.",
+          },
+          {
+            title: "10. Changes to Terms",
+            content:
+              "KIITease reserves the right to modify these terms at any time. We will provide notice of significant changes by posting the new terms on this page.",
+          },
+          {
+            title: "11. Contact Us",
+            content: (
+              <>
+                If you have any questions about these Terms, please contact us at{" "}
+                <Link href="/contact" className="text-primary hover:underline sci-fi-text-glow">
+                  our contact page
+                </Link>
+                .
+              </>
+            ),
+          },
+        ].map((section, index) => (
+          <motion.section
+            key={index}
+            variants={itemVariants}
+            className="sci-fi-card p-6 backdrop-blur-sm relative overflow-hidden sci-fi-glow"
+          >
+            <div className="absolute top-0 left-0 w-1 h-full bg-primary/30"></div>
+            <div className="absolute top-0 left-0 w-2 h-2 bg-primary rounded-full"></div>
+            <div className="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></div>
+            <div className="absolute bottom-0 left-0 w-2 h-2 bg-primary rounded-full"></div>
+            <div className="absolute bottom-0 right-0 w-2 h-2 bg-primary rounded-full"></div>
 
-          <section>
-            <h2 className="text-xl font-semibold mb-3">4. Premium Membership</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Premium membership provides access to additional features as described on our website. Payment for premium
-              membership is processed through our payment partners. Refunds are subject to our refund policy.
-            </p>
-          </section>
+            <h2 className="text-xl font-semibold mb-3 flex items-center text-primary">
+              <ChevronRight className="h-5 w-5 mr-2" />
+              {section.title}
+            </h2>
 
-          <section>
-            <h2 className="text-xl font-semibold mb-3">5. Section Swapping</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              The section swapping feature is provided as-is. KIITease does not guarantee that a match will be found for
-              your swap request. All swaps are subject to mutual agreement between the parties involved.
-            </p>
-          </section>
+            <div className="pl-7">
+              {typeof section.content === "string" ? (
+                <p className="text-gray-300">{section.content}</p>
+              ) : (
+                section.content
+              )}
 
-          <section>
-            <h2 className="text-xl font-semibold mb-3">6. Notes Sharing</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Users who upload notes retain copyright to their original content. By uploading notes, you grant KIITease
-              a license to display and distribute the content to other users of the platform.
-            </p>
-          </section>
+              {section.list && (
+                <ul className="list-disc pl-6 mt-2 text-gray-300 space-y-1">
+                  {section.list.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </motion.section>
+        ))}
+      </motion.div>
 
-          <section>
-            <h2 className="text-xl font-semibold mb-3">7. Teacher Reviews</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Reviews must be honest and based on personal experience. KIITease reserves the right to remove reviews
-              that are inappropriate, offensive, or violate our content guidelines.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold mb-3">8. Referral Program</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Referral rewards are subject to verification and may be revoked in cases of fraud or abuse. KIITease
-              reserves the right to modify or terminate the referral program at any time.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold mb-3">9. Limitation of Liability</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              KIITease and its affiliates shall not be liable for any indirect, incidental, special, consequential, or
-              punitive damages resulting from your use of or inability to use the service.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold mb-3">10. Changes to Terms</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              KIITease reserves the right to modify these terms at any time. We will provide notice of significant
-              changes by posting the new terms on this page.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold mb-3">11. Contact Us</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              If you have any questions about these Terms, please contact us at{" "}
-              <Link href="/contact" className="text-primary hover:underline">
-                our contact page
-              </Link>
-              .
-            </p>
-          </section>
-        </div>
-
-        <div className="mt-6 text-center">
-          <p className="text-gray-600 dark:text-gray-400">Last updated: June 13, 2025</p>
-        </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.5 }}
+        className="mt-8 text-center"
+      >
+        <p className="text-gray-400">Last updated: June 13, 2025</p>
       </motion.div>
     </div>
   )
