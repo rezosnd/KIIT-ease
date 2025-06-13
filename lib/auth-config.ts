@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import clientPromise from "@/lib/db"; // Import the clientPromise
+import clientPromise from "@/lib/db"; // Your MongoDB clientPromise
 import { generateReferralCode } from "@/lib/auth";
 
 export const authOptions: NextAuthOptions = {
@@ -25,15 +25,17 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
+    // Use token for session fields, not user (user is only present on sign-in)
+    async session({ session, token }) {
       if (session.user) {
-        session.user.id = user.id;
-        session.user.role = user.role || "free";
-        session.user.referralCode = user.referralCode;
+        session.user.id = token.id as string;
+        session.user.role = token.role as string || "free";
+        session.user.referralCode = token.referralCode as string;
       }
       return session;
     },
     async jwt({ token, user }) {
+      // On sign-in, user is defined
       if (user) {
         token.id = user.id;
         token.role = user.role || "free";
@@ -52,4 +54,5 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
+
 
