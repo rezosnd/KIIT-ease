@@ -348,35 +348,6 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-border/40">
-        <div className="container px-4 mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-6 md:mb-0">
-              <div className="text-xl font-bold text-primary sci-fi-text-glow">KIIT{"{ease}"}</div>
-              <p className="text-muted-foreground mt-2">A platform for KIIT University students and faculty</p>
-            </div>
-            <div className="flex flex-wrap gap-6">
-              <Link href="/about" className="text-muted-foreground hover:text-primary">
-                About
-              </Link>
-              <Link href="/terms" className="text-muted-foreground hover:text-primary">
-                Terms of Service
-              </Link>
-              <Link href="/privacy" className="text-muted-foreground hover:text-primary">
-                Privacy Policy
-              </Link>
-              <Link href="/contact" className="text-muted-foreground hover:text-primary">
-                Contact
-              </Link>
-            </div>
-          </div>
-          <div className="sci-fi-divider"></div>
-          <div className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} KIITease. All rights reserved.
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
