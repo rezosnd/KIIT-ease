@@ -1,26 +1,32 @@
-import { MongoClient, type Db } from "mongodb"
+// lib/db.ts
+import { MongoClient } from "mongodb";
 
-let cachedClient: MongoClient | null = null
-let cachedDb: Db | null = null
+const uri = process.env.MONGODB_URI!;
+const options = {};
+
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
 
 if (!process.env.MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable")
+  throw new Error("Please add your Mongo URI to .env");
 }
 
-const uri = process.env.MONGODB_URI
+declare global {
+  // Allow global var for hot-reloading in development
+  // eslint-disable-next-line no-var
+  var _mongoClientPromise: Promise<MongoClient> | undefined;
+}
 
-export async function connectToDatabase() {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb }
+if (process.env.NODE_ENV === "development") {
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri, options);
+    global._mongoClientPromise = client.connect();
   }
-
-  const client = new MongoClient(uri)
-  await client.connect()
-
-  const db = client.db("kiitease")
-
-  cachedClient = client
-  cachedDb = db
-
-  return { client, db }
+  clientPromise = global._mongoClientPromise!;
+} else {
+  client = new MongoClient(uri, options);
+  clientPromise = client.connect();
 }
+
+export default clientPromise;
+
