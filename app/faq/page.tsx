@@ -3,11 +3,13 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { HelpCircle, CreditCard, Repeat, FileText, Star, Users } from "lucide-react"
 
 export default function FAQPage() {
   const faqs = [
     {
       category: "General",
+      icon: <HelpCircle className="h-5 w-5" />,
       questions: [
         {
           question: "What is KIITease?",
@@ -28,6 +30,7 @@ export default function FAQPage() {
     },
     {
       category: "Premium Membership",
+      icon: <CreditCard className="h-5 w-5" />,
       questions: [
         {
           question: "What benefits do premium members get?",
@@ -48,6 +51,7 @@ export default function FAQPage() {
     },
     {
       category: "Section Swapping",
+      icon: <Repeat className="h-5 w-5" />,
       questions: [
         {
           question: "How does section swapping work?",
@@ -68,6 +72,7 @@ export default function FAQPage() {
     },
     {
       category: "Notes Sharing",
+      icon: <FileText className="h-5 w-5" />,
       questions: [
         {
           question: "Who can upload notes?",
@@ -86,6 +91,7 @@ export default function FAQPage() {
     },
     {
       category: "Teacher Reviews",
+      icon: <Star className="h-5 w-5" />,
       questions: [
         {
           question: "Can I review any teacher?",
@@ -105,6 +111,7 @@ export default function FAQPage() {
     },
     {
       category: "Referral System",
+      icon: <Users className="h-5 w-5" />,
       questions: [
         {
           question: "How does the referral system work?",
@@ -129,28 +136,46 @@ export default function FAQPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <div className="bg"></div>
+      <div className="hud__effects">
+        <div className="effect__long"></div>
+        <div className="effect__small"></div>
+        <div className="effect__small"></div>
+        <div className="effect__long"></div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="max-w-4xl mx-auto"
       >
-        <h1 className="text-3xl font-bold mb-6 text-primary">Frequently Asked Questions</h1>
+        <h1 className="text-3xl font-bold mb-6 text-primary sci-fi-text-glow">Frequently Asked Questions</h1>
+        <div className="sci-fi-divider mb-8"></div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          <div className="flex flex-wrap gap-2 mb-6">
+        <div className="sci-fi-card p-6 backdrop-blur-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
+
+          <div className="flex flex-wrap gap-2 mb-8">
             {faqs.map((category) => (
-              <button
+              <motion.button
                 key={category.category}
                 onClick={() => setActiveCategory(category.category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
                   activeCategory === category.category
-                    ? "bg-primary text-white"
-                    : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                    ? "bg-primary text-black shadow-[0_0_15px_rgba(98,186,155,0.5)]"
+                    : "bg-gray-800/50 text-gray-300 border border-primary/30 hover:bg-gray-700/50"
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
+                <span className={activeCategory === category.category ? "text-black" : "text-primary"}>
+                  {category.icon}
+                </span>
                 {category.category}
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -167,10 +192,18 @@ export default function FAQPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.5 }}
                       >
-                        <AccordionItem value={`item-${index}`}>
-                          <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                          <AccordionContent>
-                            <p className="text-gray-700 dark:text-gray-300">{faq.answer}</p>
+                        <AccordionItem value={`item-${index}`} className="border-primary/20 overflow-hidden">
+                          <AccordionTrigger className="text-left hover:text-primary sci-fi-text-glow py-4 px-4 bg-gray-800/30 hover:bg-gray-800/50 transition-all duration-300 rounded-md">
+                            <div className="flex items-center">
+                              <span className="text-primary mr-2">Q:</span>
+                              {faq.question}
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent className="px-4 py-4 bg-gray-800/10 border-l-2 border-primary/30 ml-4 mt-2 rounded-md">
+                            <div className="flex">
+                              <span className="text-primary mr-2">A:</span>
+                              <p className="text-gray-300">{faq.answer}</p>
+                            </div>
                           </AccordionContent>
                         </AccordionItem>
                       </motion.div>
@@ -187,9 +220,9 @@ export default function FAQPage() {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="mt-8 text-center"
         >
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-400">
             Didn't find what you're looking for?{" "}
-            <a href="/contact" className="text-primary hover:underline">
+            <a href="/contact" className="text-primary hover:underline sci-fi-text-glow">
               Contact us
             </a>{" "}
             for more information.
