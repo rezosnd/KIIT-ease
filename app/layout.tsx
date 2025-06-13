@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import navbar from "@/components/navbar"
+import Navbar from "@/components/navbar" // Corrected import (uppercase N)
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { Footer } from "@/components/footer"
@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="min-h-screen flex flex-col">
-            <Navbar />
+            <Navbar /> {/* Correct usage */}
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
@@ -38,3 +38,4 @@ export default function RootLayout({
     </html>
   )
 }
+
